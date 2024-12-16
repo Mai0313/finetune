@@ -52,7 +52,13 @@ if __name__ == "__main__":
     tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
     data.connect(tokenizer, batch_size=1, max_seq_length=512)
 
-    trainer = Trainer(devices=1, max_epochs=2, accumulate_grad_batches=8, precision="bf16-true", devices="cuda:0")
+    trainer = Trainer(
+        accelerator="gpu",
+        devices=1,
+        max_epochs=2,
+        accumulate_grad_batches=8,
+        precision="bf16-true",
+    )
     with trainer.init_module(empty_init=True):
         model = LitLLM(model=model)
 
