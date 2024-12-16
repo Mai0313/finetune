@@ -7,10 +7,11 @@ import litgpt.model
 
 
 class LitLLM(LightningModule):
-    def __init__(self):
+    def __init__(self, model: str):
         super().__init__()
+        self.model_name = model
         self.model = GPT.from_name(
-            name="Llama-3.1-8B",
+            name=model,
             lora_r=32,
             lora_alpha=16,
             lora_dropout=0.05,
@@ -21,9 +22,7 @@ class LitLLM(LightningModule):
         litgpt.lora.mark_only_lora_as_trainable(self.model)
 
     def on_train_start(self) -> None:
-        state_dict = torch.load(
-            "checkpoints/meta-llama/Meta-Llama-3.1-8B/lit_model.pth", mmap=True
-        )
+        state_dict = torch.load(f"checkpoints/{self.model_name}/lit_model.pth", mmap=True)
         self.model.load_state_dict(state_dict, strict=False)
 
     def training_step(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
@@ -47,13 +46,15 @@ class LitLLM(LightningModule):
 if __name__ == "__main__":
     data = Alpaca2k()
 
-    litgpt.LLM.load("meta-llama/Meta-Llama-3.1-8B")
-    tokenizer = litgpt.Tokenizer("checkpoints/meta-llama/Meta-Llama-3.1-8B")
+    model = "meta-llama/Llama-3.2-3B-Instruct"
+
+    litgpt.LLM.load(model=model)
+    tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
     data.connect(tokenizer, batch_size=1, max_seq_length=512)
 
-    trainer = Trainer(devices=1, max_epochs=2, accumulate_grad_batches=8, precision="bf16-true")
+    trainer = Trainer(devices=1, max_epochs=2, accumulate_grad_batches=8, precision="bf16-true", devices="cuda:0")
     with trainer.init_module(empty_init=True):
-        model = LitLLM()
+        model = LitLLM(model=model)
 
     trainer.fit(model, data)
 
