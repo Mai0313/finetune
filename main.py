@@ -22,7 +22,9 @@ class LitLLM(LightningModule):
         litgpt.lora.mark_only_lora_as_trainable(self.model)
 
     def on_train_start(self) -> None:
-        state_dict = torch.load(f"checkpoints/{self.model_name}/lit_model.pth", mmap=True)
+        state_dict = torch.load(
+            f"checkpoints/{self.model_name}/lit_model.pth", mmap=True, weights_only=True
+        )
         self.model.load_state_dict(state_dict, strict=False)
 
     def training_step(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
