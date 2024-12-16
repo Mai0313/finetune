@@ -52,11 +52,11 @@ if __name__ == "__main__":
 
     litgpt.LLM.load(model=model)
     tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
-    data.connect(tokenizer, batch_size=1, max_seq_length=512)
+    data.connect(tokenizer, batch_size=16, max_seq_length=512)
 
     trainer = Trainer(
         accelerator="gpu",
-        devices=1,
+        devices=4,
         max_epochs=720,
         accumulate_grad_batches=8,
         precision="bf16-true",
