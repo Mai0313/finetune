@@ -23,7 +23,7 @@ class LitLLM(LightningModule):
 
     def on_train_start(self) -> None:
         state_dict = torch.load(
-            f"checkpoints/{self.model_name}/lit_model.pth", mmap=True, weights_only=True
+            f"checkpoints/{self.model_name}/lit_model.pth", mmap=True, weights_only=False
         )
         self.model.load_state_dict(state_dict, strict=False)
 
@@ -52,12 +52,12 @@ if __name__ == "__main__":
 
     litgpt.LLM.load(model=model)
     tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
-    data.connect(tokenizer, batch_size=1, max_seq_length=512)
+    data.connect(tokenizer, batch_size=64, max_seq_length=512)
 
     trainer = Trainer(
         accelerator="gpu",
         devices=1,
-        max_epochs=2,
+        max_epochs=720,
         accumulate_grad_batches=8,
         precision="bf16-true",
     )
