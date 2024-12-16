@@ -1,0 +1,48 @@
+services:
+  redis:
+    image: redis:7.2.5-alpine
+    ports:
+      - ${REDIS_PORT:-6379}:6379
+    command:
+      - redis-server
+    volumes:
+      - ./data/redis:/var/lib/redis
+    restart: always
+    pull_policy: always
+
+  postgresql:
+    image: postgres:16.3-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+    restart: always
+    pull_policy: always
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - ${MONGO_PORT:-27017}:${MONGO_PORT:-27017}
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+    pull_policy: always
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mysql}
+      MYSQL_USER: ${MYSQL_USER:-mysql}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mysql}
+    ports:
+      - ${MYSQL_PORT:-3306}:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    restart: always
+    pull_policy: always
