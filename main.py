@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     trainer = Trainer(
         accelerator="gpu",
-        devices=4,
+        devices=1,
         max_epochs=720,
         accumulate_grad_batches=8,
         precision="bf16-true",
