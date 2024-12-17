@@ -164,3 +164,4 @@ cython_debug/
 /.github/reports/
 /checkpoints/
 /lightning_logs/
+/evaluate_model/

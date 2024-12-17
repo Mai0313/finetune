@@ -1,7 +1,6 @@
 import torch
 import litgpt
 from lightning import Trainer, LightningModule
-from litgpt.data import Alpaca2k
 from litgpt.lora import GPT, merge_lora_weights
 import litgpt.model
 
@@ -46,11 +45,24 @@ class LitLLM(LightningModule):
 
 
 if __name__ == "__main__":
-    data = Alpaca2k()
+    from pathlib import Path
+
+    from datasets import load_dataset
+    from litgpt.data import JSON
+
+    data_path = "hugfaceguy0001/retarded_bar"
+    dataset = load_dataset(
+        path=data_path, name="question", split="train", cache_dir="./data", num_proc=8
+    )
+    filepath = Path(dataset.cache_files[0]["filename"])
+    dataset.rename_columns({"text": "input", "answer": "output"})
+    dataset.to_json(f"{filepath.parent}/{filepath.stem}.json", force_ascii=False)
+
+    data = JSON(json_path=f"{filepath.parent}/{filepath.stem}.json")
 
     model = "meta-llama/Llama-3.2-3B-Instruct"
-
     litgpt.LLM.load(model=model)
+
     tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
     data.connect(tokenizer, batch_size=1, max_seq_length=512)
 
