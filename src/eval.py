@@ -43,13 +43,11 @@ def generate_model_scores(
     return scores
 
 
-def start_eval(data: str, model: str) -> None:
+def start_eval(model: str, data: str, name: str, split: str, question: str, answer: str) -> None:
     prompt_style = Alpaca()
     llm = litgpt.LLM.load(model)
 
-    dataset = HFDataLoader(
-        path=data, name="question", split="train", question="text", answer="answer"
-    )
+    dataset = HFDataLoader(path=data, name=name, split=split, question=question, answer=answer)
     testing_datasets = dataset.load_list()
     with Progress() as progress:
         task = progress.add_task("Generating responses", total=len(testing_datasets))
@@ -67,4 +65,8 @@ def start_eval(data: str, model: str) -> None:
 if __name__ == "__main__":
     model = "meta-llama/Llama-3.2-1B-Instruct"
     data = "hugfaceguy0001/retarded_bar"
-    start_eval(data=data, model=model)
+    name = "question"
+    split = "train"
+    question = "text"
+    answer = "answer"
+    start_eval(data=data, model=model, name=name, split=split, question=question, answer=answer)

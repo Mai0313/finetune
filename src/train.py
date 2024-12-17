@@ -6,14 +6,12 @@ from model.lora import FinetuneLLM
 from data.loader import HFDataLoader
 
 
-def train(model: str, data: str) -> None:
+def train(model: str, data: str, name: str, split: str, question: str, answer: str) -> None:
     litgpt.LLM.load(model=model)
 
     tokenizer = litgpt.Tokenizer(f"checkpoints/{model}")
 
-    dataset = HFDataLoader(
-        path=data, name="question", split="train", question="text", answer="answer"
-    )
+    dataset = HFDataLoader(path=data, name=name, split=split, question=question, answer=answer)
     loaded_data = dataset.load_as_json()
     loaded_data.connect(tokenizer, batch_size=1, max_seq_length=512)
 
@@ -40,4 +38,8 @@ def train(model: str, data: str) -> None:
 if __name__ == "__main__":
     model = "meta-llama/Llama-3.2-1B-Instruct"
     data = "hugfaceguy0001/retarded_bar"
-    train(model=model, data=data)
+    name = "question"
+    split = "train"
+    question = "text"
+    answer = "answer"
+    train(model=model, data=data, name=name, split=split, question=question, answer=answer)
