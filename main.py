@@ -10,7 +10,7 @@ from litgpt.lora import GPT, mark_only_lora_as_trainable
 from litgpt.utils import chunked_cross_entropy
 
 
-class LitLLM(LightningModule):
+class FinetuneLLM(LightningModule):
     def __init__(self, model: str):
         super().__init__()
         self.model = GPT.from_name(
@@ -141,7 +141,7 @@ if __name__ == "__main__":
         precision="bf16-true",
     )
     with trainer.init_module(empty_init=True):
-        finetuned_llm = LitLLM(model=model)
+        finetuned_llm = FinetuneLLM(model=model)
 
     trainer.fit(finetuned_llm, data)
 
