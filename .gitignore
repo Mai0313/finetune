@@ -166,3 +166,4 @@ cython_debug/
 /lightning_logs/
 /evaluate_model/
 /logs/
+/outputs/

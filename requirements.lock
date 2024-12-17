@@ -32,6 +32,8 @@ anyio==4.7.0
     # via openai
     # via starlette
     # via watchfiles
+argcomplete==3.5.2
+    # via datamodel-code-generator
 async-timeout==5.0.1 ; python_full_version < '3.11'
     # via aiohttp
 attrs==24.2.0
@@ -39,6 +41,8 @@ attrs==24.2.0
     # via jsonlines
 bitsandbytes==0.42.0
     # via litgpt
+black==24.10.0
+    # via datamodel-code-generator
 boto3==1.35.81
     # via litdata
 botocore==1.35.81
@@ -55,14 +59,19 @@ chardet==5.2.0
 charset-normalizer==3.4.0
     # via requests
 click==8.1.7
+    # via black
     # via nltk
     # via uvicorn
 colorama==0.4.6
     # via click
+    # via colorlog
     # via sacrebleu
     # via tqdm
     # via tqdm-multiprocess
     # via uvicorn
+colorlog==6.9.0
+    # via hydra-colorlog
+datamodel-code-generator==0.26.4
 dataproperty==1.0.1
     # via pytablewriter
     # via tabledata
@@ -77,8 +86,12 @@ dill==0.3.8
     # via multiprocess
 distro==1.9.0
     # via openai
+dnspython==2.7.0 ; python_full_version < '4.0'
+    # via email-validator
 docstring-parser==0.16
     # via jsonargparse
+email-validator==2.2.0 ; python_full_version < '4.0'
+    # via pydantic
 evaluate==0.4.3
     # via lm-eval
 exceptiongroup==1.2.2 ; python_full_version < '3.11'
@@ -102,6 +115,8 @@ fsspec==2024.9.0
     # via lightning
     # via pytorch-lightning
     # via torch
+genson==1.3.0
+    # via datamodel-code-generator
 grpcio==1.68.1
     # via tensorboard
 h11==0.14.0
@@ -124,17 +139,25 @@ huggingface-hub==0.26.5
     # via peft
     # via tokenizers
     # via transformers
+hydra-colorlog==1.2.0
 hydra-core==1.3.2
+    # via hydra-colorlog
 idna==3.10
     # via anyio
+    # via email-validator
     # via httpx
     # via requests
     # via yarl
 importlib-resources==6.4.5
     # via typeshed-client
+inflect==5.6.2
+    # via datamodel-code-generator
 inquirerpy==0.3.4
     # via huggingface-hub
+isort==5.13.2
+    # via datamodel-code-generator
 jinja2==3.1.4
+    # via datamodel-code-generator
     # via torch
 jiter==0.8.2
     # via openai
@@ -182,6 +205,8 @@ multidict==6.1.0
 multiprocess==0.70.16
     # via datasets
     # via evaluate
+mypy-extensions==1.0.0
+    # via black
 networkx==3.4.2
     # via torch
 nltk==3.9.1
@@ -233,6 +258,8 @@ omegaconf==2.3.0
 openai==1.57.4
 packaging==24.2
     # via accelerate
+    # via black
+    # via datamodel-code-generator
     # via datasets
     # via evaluate
     # via huggingface-hub
@@ -249,12 +276,16 @@ pandas==2.2.3
     # via datasets
     # via evaluate
     # via litgpt
+pathspec==0.12.1
+    # via black
 pathvalidate==3.2.1
     # via pytablewriter
 peft==0.14.0
     # via lm-eval
 pfzy==0.3.4
     # via inquirerpy
+platformdirs==4.3.6
+    # via black
 portalocker==3.0.0
     # via sacrebleu
 prompt-toolkit==3.0.48
@@ -275,6 +306,7 @@ pybind11==2.13.6
 pycparser==2.22 ; platform_python_implementation == 'PyPy'
     # via cffi
 pydantic==2.10.3
+    # via datamodel-code-generator
     # via fastapi
     # via openai
 pydantic-core==2.27.1
@@ -296,6 +328,7 @@ pywin32==308 ; platform_system == 'Windows'
     # via portalocker
 pyyaml==6.0.2
     # via accelerate
+    # via datamodel-code-generator
     # via datasets
     # via huggingface-hub
     # via jsonargparse
@@ -366,6 +399,10 @@ threadpoolctl==3.5.0
 tokenizers==0.21.0
     # via litgpt
     # via transformers
+toml==0.10.2 ; python_full_version < '3.11'
+    # via datamodel-code-generator
+tomli==2.2.1 ; python_full_version < '3.11'
+    # via black
 torch==2.4.1+cu118
     # via accelerate
     # via lightning
@@ -407,6 +444,7 @@ typeshed-client==2.7.0
     # via jsonargparse
 typing-extensions==4.12.2
     # via anyio
+    # via black
     # via fastapi
     # via huggingface-hub
     # via lightning

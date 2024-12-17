@@ -1,12 +1,22 @@
 # @package _global_
 defaults:
   - _self_
+  - trainer: default
+  - hydra: default
   # experiment configs allow for version control of specific hyperparameters
   # e.g. best hyperparameters for given model and datamodule
-  - experiment: null
+  - experiment: example
 
 # task name, determines output directory path
 task_name: "default"
+
+loggers:
+  # - comet
+  - csv
+  # - mlflow
+  # - neptune
+  - tensorboard
+  - wandb
 
 # tags to help you identify your experiments
 # you can overwrite this in experiment configs

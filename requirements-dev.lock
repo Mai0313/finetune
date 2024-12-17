@@ -35,6 +35,8 @@ anyio==4.6.2.post1
     # via watchfiles
 appnope==0.1.4 ; platform_system == 'Darwin'
     # via ipykernel
+argcomplete==3.5.2
+    # via datamodel-code-generator
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -59,6 +61,8 @@ beautifulsoup4==4.12.3
     # via nbconvert
 bitsandbytes==0.42.0
     # via litgpt
+black==24.10.0
+    # via datamodel-code-generator
 bleach==6.2.0
     # via nbconvert
 boto3==1.35.81
@@ -81,6 +85,7 @@ chardet==5.2.0
 charset-normalizer==3.4.0
     # via requests
 click==8.1.7
+    # via black
     # via genbadge
     # via mkdocs
     # via mkdocstrings
@@ -88,6 +93,7 @@ click==8.1.7
     # via uvicorn
 colorama==0.4.6
     # via click
+    # via colorlog
     # via griffe
     # via ipython
     # via mkdocs
@@ -97,11 +103,14 @@ colorama==0.4.6
     # via tqdm
     # via tqdm-multiprocess
     # via uvicorn
+colorlog==6.9.0
+    # via hydra-colorlog
 comm==0.2.2
     # via ipykernel
     # via ipywidgets
 coverage==7.6.4
     # via pytest-cov
+datamodel-code-generator==0.26.4
 dataproperty==1.0.1
     # via pytablewriter
     # via tabledata
@@ -125,8 +134,12 @@ distlib==0.3.9
     # via virtualenv
 distro==1.9.0
     # via openai
+dnspython==2.7.0 ; python_full_version < '4.0'
+    # via email-validator
 docstring-parser==0.16
     # via jsonargparse
+email-validator==2.2.0 ; python_full_version < '4.0'
+    # via pydantic
 evaluate==0.4.3
     # via lm-eval
 exceptiongroup==1.2.2 ; python_full_version < '3.11'
@@ -167,6 +180,8 @@ fsspec==2024.9.0
     # via pytorch-lightning
     # via torch
 genbadge==1.1.1
+genson==1.3.0
+    # via datamodel-code-generator
 ghp-import==2.1.0
     # via mkdocs
 griffe==1.5.1
@@ -196,17 +211,22 @@ huggingface-hub==0.26.5
     # via peft
     # via tokenizers
     # via transformers
+hydra-colorlog==1.2.0
 hydra-core==1.3.2
+    # via hydra-colorlog
 identify==2.6.2
     # via pre-commit
 idna==3.10
     # via anyio
+    # via email-validator
     # via httpx
     # via jsonschema
     # via requests
     # via yarl
 importlib-resources==6.4.5
     # via typeshed-client
+inflect==5.6.2
+    # via datamodel-code-generator
 iniconfig==2.0.0
     # via pytest
 inquirerpy==0.3.4
@@ -219,9 +239,12 @@ ipython==8.18.1
 ipywidgets==8.1.5
 isoduration==20.11.0
     # via jsonschema
+isort==5.13.2
+    # via datamodel-code-generator
 jedi==0.19.2
     # via ipython
 jinja2==3.1.4
+    # via datamodel-code-generator
     # via flake8-html
     # via jupyter-server
     # via jupyterlab
@@ -358,6 +381,8 @@ multidict==6.1.0
 multiprocess==0.70.16
     # via datasets
     # via evaluate
+mypy-extensions==1.0.0
+    # via black
 nbclient==0.10.0
     # via nbconvert
 nbconvert==7.16.4
@@ -427,6 +452,8 @@ overrides==7.7.0
     # via jupyter-server
 packaging==24.2
     # via accelerate
+    # via black
+    # via datamodel-code-generator
     # via datasets
     # via evaluate
     # via huggingface-hub
@@ -457,6 +484,7 @@ pandocfilters==1.5.1
 parso==0.8.4
     # via jedi
 pathspec==0.12.1
+    # via black
     # via mkdocs
 pathvalidate==3.2.1
     # via pytablewriter
@@ -469,6 +497,7 @@ pfzy==0.3.4
 pillow==11.0.0
     # via genbadge
 platformdirs==4.3.6
+    # via black
     # via jupyter-core
     # via mkdocs-get-deps
     # via mkdocstrings
@@ -507,6 +536,7 @@ pycodestyle==2.12.1
 pycparser==2.22
     # via cffi
 pydantic==2.10.3
+    # via datamodel-code-generator
     # via fastapi
     # via openai
 pydantic-core==2.27.1
@@ -556,6 +586,7 @@ pywinpty==2.0.14 ; os_name == 'nt'
     # via terminado
 pyyaml==6.0.2
     # via accelerate
+    # via datamodel-code-generator
     # via datasets
     # via huggingface-hub
     # via jsonargparse
@@ -673,7 +704,10 @@ tinycss2==1.4.0
 tokenizers==0.21.0
     # via litgpt
     # via transformers
+toml==0.10.2 ; python_full_version < '3.11'
+    # via datamodel-code-generator
 tomli==2.1.0 ; python_full_version <= '3.11'
+    # via black
     # via coverage
     # via jupyterlab
     # via pytest
@@ -742,6 +776,7 @@ typeshed-client==2.7.0
 typing-extensions==4.12.2
     # via anyio
     # via async-lru
+    # via black
     # via fastapi
     # via griffe-typingdoc
     # via huggingface-hub
