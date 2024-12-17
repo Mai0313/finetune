@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 from datasets import Dataset, load_dataset
 from pydantic import Field, BaseModel
@@ -66,6 +67,10 @@ class HFDataLoader(BaseModel):
         ]
         dataset = dataset.remove_columns(need_to_remove)
         return dataset
+
+    def load_list(self) -> list[dict[str, Any]]:
+        dataset = self.load()
+        return dataset.to_list()
 
     def load_as_json(self, val_split: float = 0.2) -> JSON:
         dataset = self.load()
