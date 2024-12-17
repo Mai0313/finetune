@@ -44,7 +44,7 @@ class FinetuneLLM(LightningModule):
 if __name__ == "__main__":
     from litgpt.lora import merge_lora_weights
 
-    from datamodule.data_loader import HFDataLoader
+    from data.loader import HFDataLoader
 
     model = "meta-llama/Llama-3.2-1B-Instruct"
     path = "hugfaceguy0001/retarded_bar"
