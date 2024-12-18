@@ -1,19 +1,17 @@
-from typing import TYPE_CHECKING
-
 import hydra
+import torch
 import litgpt
-from omegaconf import DictConfig, OmegaConf
+from lightning import Trainer
+from omegaconf import OmegaConf, DictConfig
 from litgpt.lora import merge_lora_weights
 from rich.console import Console
-from model.lora import FinetuneLLM
 
+from model.lora import FinetuneLLM
 from data.loader import HFDataLoader
 from utils.instantiators import instantiate_loggers, instantiate_callbacks
 
-if TYPE_CHECKING:
-    from lightning import Trainer, LightningModule
-
 console = Console()
+
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
 def train(config: DictConfig) -> None:
@@ -33,7 +31,8 @@ def train(config: DictConfig) -> None:
 
     logger = instantiate_loggers(config.logger)
 
-    trainer: Trainer = hydra.utils.instantiate(config.trainer, callbacks=callbacks, logger=logger)
+    torch.set_float32_matmul_precision("medium")
+    trainer = Trainer(**config.trainer, callbacks=callbacks, logger=logger)
 
     with trainer.init_module(empty_init=True):
         model = FinetuneLLM(**config.pretrained)
