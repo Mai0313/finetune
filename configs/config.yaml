@@ -8,6 +8,7 @@ defaults:
   - pretrained: default
   - trainer: default
   - paths: default
+  - logger: default
   - extras: default
   - hydra: default
 

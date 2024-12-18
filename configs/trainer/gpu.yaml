@@ -9,3 +9,4 @@ min_epochs: 10
 enable_progress_bar: true
 default_root_dir: ./logs
 precision: bf16-true
+log_every_n_steps: 10

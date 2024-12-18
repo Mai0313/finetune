@@ -3,3 +3,5 @@ name: question
 split: train
 question: text
 answer: answer
+batch_size: 1
+max_seq_length: 512

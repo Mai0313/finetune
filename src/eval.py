@@ -1,12 +1,13 @@
 from typing import Any, Literal
 
-import litgpt
 import hydra
+import litgpt
+from omegaconf import DictConfig
 from rich.console import Console
 from rich.progress import Progress
 from litgpt.prompts import Alpaca
 from huggingface_hub import InferenceClient
-from omegaconf import DictConfig
+
 from data.loader import HFDataLoader
 
 console = Console()
