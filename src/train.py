@@ -1,20 +1,16 @@
 import hydra
 import litgpt
 from lightning import Trainer
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import DictConfig
 from litgpt.lora import merge_lora_weights
-from rich.console import Console
 
 from model.lora import FinetuneLLM
 from data.loader import HFDataLoader
-from utils.instantiators import instantiate_loggers
-
-console = Console()
+from utils.instantiators import instantiate_loggers, instantiate_callbacks
 
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="config.yaml")
 def train(config: DictConfig) -> None:
-    console.print(OmegaConf.to_container(config))
     litgpt.LLM.load(model=config.pretrained.model)
 
     tokenizer = litgpt.Tokenizer(f"checkpoints/{config.pretrained.model}")
@@ -27,9 +23,11 @@ def train(config: DictConfig) -> None:
         max_seq_length=config.data.max_seq_length,
     )
 
+    callbacks = instantiate_callbacks(config.callbacks)
+
     logger = instantiate_loggers(config.logger)
 
-    trainer = Trainer(logger=logger, **config.trainer)
+    trainer = Trainer(logger=logger, callbacks=callbacks, **config.trainer)
     with trainer.init_module(empty_init=True):
         finetuned_llm = FinetuneLLM(model=config.pretrained.model)
 

@@ -6,9 +6,10 @@ defaults:
   - _self_
   - data: default
   - pretrained: default
+  - callbacks: default
+  - logger: default
   - trainer: default
   - paths: default
-  - logger: default
   - extras: default
   - hydra: default
 
