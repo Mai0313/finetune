@@ -1,11 +1,12 @@
 from typing import Any, Literal
 
 import litgpt
+import hydra
 from rich.console import Console
 from rich.progress import Progress
 from litgpt.prompts import Alpaca
 from huggingface_hub import InferenceClient
-
+from omegaconf import DictConfig
 from data.loader import HFDataLoader
 
 console = Console()
@@ -43,12 +44,14 @@ def generate_model_scores(
     return scores
 
 
-def start_eval(model: str, data: str, name: str, split: str, question: str, answer: str) -> None:
+@hydra.main(version_base="1.3", config_path="../configs", config_name="config.yaml")
+def start_eval(config: DictConfig) -> None:
     prompt_style = Alpaca()
-    llm = litgpt.LLM.load(model)
+    llm = litgpt.LLM.load(config.pretrained.model)
 
-    dataset = HFDataLoader(path=data, name=name, split=split, question=question, answer=answer)
+    dataset = HFDataLoader(**config.data)
     testing_datasets = dataset.load_list()
+    testing_datasets = [testing_datasets[0]]
     with Progress() as progress:
         task = progress.add_task("Generating responses", total=len(testing_datasets))
         for testing_dataset in testing_datasets:
@@ -63,10 +66,4 @@ def start_eval(model: str, data: str, name: str, split: str, question: str, answ
 
 
 if __name__ == "__main__":
-    model = "meta-llama/Llama-3.2-1B-Instruct"
-    data = "hugfaceguy0001/retarded_bar"
-    name = "question"
-    split = "train"
-    question = "text"
-    answer = "answer"
-    start_eval(data=data, model=model, name=name, split=split, question=question, answer=answer)
+    start_eval()
