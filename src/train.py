@@ -1,44 +1,28 @@
-import json
-
 import hydra
 import litgpt
 from lightning import Trainer
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import DictConfig
 from litgpt.lora import merge_lora_weights
+from rich.console import Console
 
 from model.lora import FinetuneLLM
 from data.loader import HFDataLoader
-from _types.config import FinetuneConfig
+
+console = Console()
 
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="config.yaml")
-def train(cfg: DictConfig) -> None:
-    config_dict = OmegaConf.to_container(cfg)
-    with open("config.json", "w") as f:
-        json.dump(config_dict, f, indent=4)
-    config = FinetuneConfig(**config_dict)
+def train(config: DictConfig) -> None:
+    console.print(config)
     litgpt.LLM.load(model=config.pretrained.model)
 
     tokenizer = litgpt.Tokenizer(f"checkpoints/{config.pretrained.model}")
 
-    dataset = HFDataLoader(
-        path=config.dataset.data,
-        name=config.dataset.name,
-        split=config.dataset.split,
-        question=config.dataset.question,
-        answer=config.dataset.answer,
-    )
+    dataset = HFDataLoader(**config.data)
     loaded_data = dataset.load_as_json()
-    loaded_data.connect(tokenizer, batch_size=1, max_seq_length=512)
+    loaded_data.connect(tokenizer=tokenizer, batch_size=1, max_seq_length=512)
 
-    trainer = Trainer(
-        accelerator="gpu",
-        devices=1,
-        max_epochs=720,
-        accumulate_grad_batches=8,
-        precision="bf16-true",
-        log_every_n_steps=10,
-    )
+    trainer = Trainer(**config.trainer)
     with trainer.init_module(empty_init=True):
         finetuned_llm = FinetuneLLM(model=config.pretrained.model)
 
