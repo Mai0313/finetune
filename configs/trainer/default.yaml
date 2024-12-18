@@ -5,7 +5,7 @@ max_epochs: 5
 
 accelerator: gpu
 devices:
-  - 1
+  - 0
 strategy: "auto"
 
 # mixed precision for extra speed-up
