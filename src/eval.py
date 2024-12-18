@@ -45,7 +45,7 @@ def generate_model_scores(
     return scores
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="config.yaml")
+@hydra.main(version_base="1.3", config_path="../configs", config_name="eval.yaml")
 def start_eval(config: DictConfig) -> None:
     prompt_style = Alpaca()
     llm = litgpt.LLM.load(config.pretrained.model)

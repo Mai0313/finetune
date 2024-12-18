@@ -1,9 +1,5 @@
-accelerator: "cpu"
-strategy: "auto"
-devices: "auto"
-check_val_every_n_epoch: 1
-deterministic: true
-max_epochs: 720
-min_epochs: 10
-enable_progress_bar: true
-default_root_dir: ./logs
+defaults:
+  - default
+
+accelerator: cpu
+devices: 1

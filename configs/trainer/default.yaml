@@ -1,2 +1,27 @@
-defaults:
-  - gpu
+_target_: lightning.pytorch.trainer.Trainer
+
+default_root_dir: ${paths.output_dir}
+
+min_epochs: 1 # prevents early stopping
+max_epochs: 720
+
+accelerator: gpu
+devices:
+  - 1
+strategy: "auto"
+
+# mixed precision for extra speed-up
+# precision: 16
+precision: bf16-true
+
+# perform a validation loop every N training epochs
+check_val_every_n_epoch: 1
+
+# set True to to ensure deterministic results
+# makes training slower but gives more reproducibility than just setting seeds
+deterministic: True
+
+# Log every N steps
+log_every_n_steps: 10
+
+enable_progress_bar: true

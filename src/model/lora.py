@@ -5,17 +5,26 @@ from litgpt.utils import chunked_cross_entropy
 
 
 class FinetuneLLM(LightningModule):
-    def __init__(self, model: str):
+    def __init__(
+        self,
+        model: str,
+        lora_r: int,
+        lora_alpha: int,
+        lora_dropout: float,
+        lora_query: bool,
+        lora_key: bool,
+        lora_value: bool,
+    ):
         super().__init__()
         self.model_name = model
         self.model = GPT.from_name(
             name=model,
-            lora_r=32,
-            lora_alpha=16,
-            lora_dropout=0.05,
-            lora_query=True,
-            lora_key=False,
-            lora_value=True,
+            lora_r=lora_r,
+            lora_alpha=lora_alpha,
+            lora_dropout=lora_dropout,
+            lora_query=lora_query,
+            lora_key=lora_key,
+            lora_value=lora_value,
         )
         mark_only_lora_as_trainable(self.model)
 

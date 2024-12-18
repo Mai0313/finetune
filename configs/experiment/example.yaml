@@ -3,9 +3,11 @@
 pretrained:
   model: meta-llama/Llama-3.2-1B-Instruct
 
-dataset:
-  data: hugfaceguy0001/retarded_bar
+data:
+  path: hugfaceguy0001/retarded_bar
   name: question
   split: train
   question: text
   answer: answer
+  batch_size: 1
+  max_seq_length: 512

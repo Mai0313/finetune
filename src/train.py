@@ -1,17 +1,23 @@
+from typing import TYPE_CHECKING
+
 import hydra
 import litgpt
-from lightning import Trainer
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 from litgpt.lora import merge_lora_weights
-
+from rich.console import Console
 from model.lora import FinetuneLLM
+
 from data.loader import HFDataLoader
 from utils.instantiators import instantiate_loggers, instantiate_callbacks
 
+if TYPE_CHECKING:
+    from lightning import Trainer, LightningModule
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="config.yaml")
+console = Console()
+
+@hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
 def train(config: DictConfig) -> None:
-    litgpt.LLM.load(model=config.pretrained.model)
+    console.print(OmegaConf.to_container(config))
 
     tokenizer = litgpt.Tokenizer(f"checkpoints/{config.pretrained.model}")
 
@@ -27,14 +33,15 @@ def train(config: DictConfig) -> None:
 
     logger = instantiate_loggers(config.logger)
 
-    trainer = Trainer(logger=logger, callbacks=callbacks, **config.trainer)
-    with trainer.init_module(empty_init=True):
-        finetuned_llm = FinetuneLLM(model=config.pretrained.model)
+    trainer: Trainer = hydra.utils.instantiate(config.trainer, callbacks=callbacks, logger=logger)
 
-    trainer.fit(finetuned_llm, loaded_data)
+    with trainer.init_module(empty_init=True):
+        model = FinetuneLLM(**config.pretrained)
+
+    trainer.fit(model, loaded_data)
 
     # Save final checkpoint
-    merge_lora_weights(finetuned_llm.model)
+    merge_lora_weights(model.model)
     model_name = config.pretrained.model.split("/")[-1]
     ckpt_name = f"{model_name}-finetuned.ckpt"
     trainer.save_checkpoint(f"checkpoints/{ckpt_name}", weights_only=True)
