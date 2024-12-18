@@ -16,6 +16,7 @@ console = Console()
 @hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
 def train(config: DictConfig) -> None:
     console.print(OmegaConf.to_container(config))
+    litgpt.LLM.load(config.pretrained.model)
 
     tokenizer = litgpt.Tokenizer(f"checkpoints/{config.pretrained.model}")
 

@@ -2,7 +2,7 @@ from typing import Any, Literal
 
 import hydra
 import litgpt
-from omegaconf import DictConfig
+from omegaconf import OmegaConf, DictConfig
 from rich.console import Console
 from rich.progress import Progress
 from litgpt.prompts import Alpaca
@@ -47,6 +47,7 @@ def generate_model_scores(
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="eval.yaml")
 def start_eval(config: DictConfig) -> None:
+    console.print(OmegaConf.to_container(config))
     prompt_style = Alpaca()
     llm = litgpt.LLM.load(config.pretrained.model)
 
