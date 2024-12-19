@@ -1,0 +1,6 @@
+path: LooksJuicy/ruozhiba
+split: train
+question: instruction
+answer: output
+batch_size: 1
+max_seq_length: 512

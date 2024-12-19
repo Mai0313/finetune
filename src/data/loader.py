@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from datasets import Dataset, load_dataset
 from pydantic import Field, BaseModel
@@ -15,8 +15,8 @@ class HFDataLoader(BaseModel):
         frozen=True,
         deprecated=False,
     )
-    name: str = Field(
-        ...,
+    name: Optional[str] = Field(
+        default=None,
         title="The name of the dataset",
         description="The name of the dataset from huggingface.",
         frozen=True,
@@ -55,11 +55,9 @@ class HFDataLoader(BaseModel):
 
     def load(self) -> Dataset:
         dataset = load_dataset(
-            path=self.path,
-            name=self.name,
-            split=self.split,
             cache_dir="./data/tmp",
             num_proc=self.max_cpu,
+            **self.model_dump(include={"path", "name", "split"}),
         )
         dataset = dataset.rename_columns({self.question: "instruction", self.answer: "output"})
         need_to_remove = [
