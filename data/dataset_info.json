@@ -1,0 +1,11 @@
+{
+    "rt_bar": {
+      "hf_hub_url": "hugfaceguy0001/retarded_bar",
+      "subset": "question",
+      "split":"train",
+      "columns": {
+        "prompt": "text",
+        "response": "answer"
+      }
+    }
+}
