@@ -77,6 +77,7 @@ dependencies = [
     "mlflow>=2.19.0",
     "nvitop>=1.3.2",
     "llamafactory>=0.9.1",
+    "deepspeed>=0.16.2",
 ]
 dynamic = ["readme"]
 readme = "README.md"
