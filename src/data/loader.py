@@ -58,7 +58,7 @@ class HFDataLoader(BaseModel):
             path=self.path,
             name=self.name,
             split=self.split,
-            cache_dir="./data",
+            cache_dir="./data/tmp",
             num_proc=self.max_cpu,
         )
         dataset = dataset.rename_columns({self.question: "instruction", self.answer: "output"})

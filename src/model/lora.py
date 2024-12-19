@@ -1,4 +1,5 @@
 import torch
+import litgpt
 from lightning import LightningModule
 from litgpt.lora import GPT, mark_only_lora_as_trainable
 from litgpt.utils import chunked_cross_entropy
@@ -17,6 +18,7 @@ class FinetuneLLM(LightningModule):
     ):
         super().__init__()
         self.model_name = model
+        self.llm = litgpt.LLM.load(self.model_name)
         self.model = GPT.from_name(
             name=model,
             lora_r=lora_r,
@@ -26,6 +28,7 @@ class FinetuneLLM(LightningModule):
             lora_key=lora_key,
             lora_value=lora_value,
         )
+        self.tokenizer = litgpt.Tokenizer(f"checkpoints/{self.model_name}")
         mark_only_lora_as_trainable(self.model)
 
     def on_train_start(self) -> None:
