@@ -91,6 +91,7 @@ Repository = "https://github.com/Mai0313/finetune"
 
 api = { cmd = "python ./api.py" }
 main = { cmd = "python ./main.py" }
+web = { cmd = "llamafactory-cli webui" }
 ask = { cmd = "python ./src/gen.py" }
 eval = { cmd = "python ./src/eval.py" }
 train = { cmd = "python ./src/train.py" }
