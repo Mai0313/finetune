@@ -45,7 +45,7 @@ def generate_model_scores(
     return scores
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="eval.yaml")
+@hydra.main(version_base="1.3", config_path="../config", config_name="eval.yaml")
 def start_eval(config: DictConfig) -> None:
     console.print(OmegaConf.to_container(config))
     prompt_style = Alpaca()

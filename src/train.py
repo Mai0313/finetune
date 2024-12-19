@@ -12,7 +12,7 @@ from utils.instantiators import instantiate_loggers, instantiate_callbacks
 console = Console()
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
+@hydra.main(version_base="1.3", config_path="../config", config_name="train.yaml")
 def train(config: DictConfig) -> None:
     console.print(OmegaConf.to_container(config))
 
