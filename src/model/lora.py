@@ -3,6 +3,7 @@ import litgpt
 from lightning import LightningModule
 from litgpt.lora import GPT, mark_only_lora_as_trainable
 from litgpt.utils import chunked_cross_entropy
+from nltk.translate.bleu_score import sentence_bleu
 
 
 class FinetuneLLM(LightningModule):
@@ -31,6 +32,9 @@ class FinetuneLLM(LightningModule):
         self.tokenizer = litgpt.Tokenizer(f"checkpoints/{self.model_name}")
         mark_only_lora_as_trainable(self.model)
 
+    def setup(self, stage: str) -> None:
+        pass
+
     def on_train_start(self) -> None:
         ckpt_path = f"checkpoints/{self.model_name}/lit_model.pth"
         state_dict = torch.load(ckpt_path, mmap=True, weights_only=False)
@@ -42,6 +46,14 @@ class FinetuneLLM(LightningModule):
         loss = chunked_cross_entropy(logits[..., :-1, :], targets[..., 1:])
         self.log("train_loss", loss, prog_bar=True)
         return loss
+
+    def compute_bleu_score(self, generated_text: str, target_text: str) -> float:
+        self.log("generated_text", generated_text)
+        self.log("target_text", target_text)
+        reference = [target_text.split()]
+        candidate = generated_text.split()
+        score = sentence_bleu(reference, candidate)
+        return score
 
     def configure_optimizers(
         self,
