@@ -5,7 +5,7 @@ top.model_name: Qwen2.5-0.5B
 top.quantization_bit: none
 top.quantization_method: bitsandbytes
 top.rope_scaling: none
-top.template: empty
+top.template: default
 train.additional_target: ''
 train.badam_mode: layer
 train.badam_switch_interval: 50
@@ -19,7 +19,7 @@ train.dataset:
 - rt_barv2
 train.dataset_dir: data
 train.ds_offload: false
-train.ds_stage: '2'
+train.ds_stage: none
 train.extra_args: '{"optim": "adamw_torch"}'
 train.freeze_extra_modules: ''
 train.freeze_trainable_layers: 2
