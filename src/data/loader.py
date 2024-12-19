@@ -74,7 +74,8 @@ class HFDataLoader(BaseModel):
         dataset = self.load()
         filepath = Path(dataset.cache_files[0]["filename"])
         dataset_path = Path(f"{filepath.parent}/{filepath.stem}.json")
-        dataset.to_json(
-            dataset_path.as_posix(), num_proc=self.max_cpu, force_ascii=False, lines=False
+        data = dataset.to_pandas()
+        data.to_json(
+            dataset_path.as_posix(), orient="records", force_ascii=False, lines=False
         )
         return JSON(json_path=dataset_path, val_split_fraction=val_split)
