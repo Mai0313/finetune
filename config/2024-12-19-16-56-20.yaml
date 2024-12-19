@@ -5,13 +5,13 @@ top.model_name: Qwen2.5-0.5B
 top.quantization_bit: none
 top.quantization_method: bitsandbytes
 top.rope_scaling: none
-top.template: default
+top.template: empty
 train.additional_target: ''
 train.badam_mode: layer
 train.badam_switch_interval: 50
 train.badam_switch_mode: ascending
 train.badam_update_ratio: 0.05
-train.batch_size: 2
+train.batch_size: 1
 train.compute_type: bf16
 train.create_new_adapter: false
 train.cutoff_len: 1024
