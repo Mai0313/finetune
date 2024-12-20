@@ -11,10 +11,10 @@ train.badam_mode: layer
 train.badam_switch_interval: 50
 train.badam_switch_mode: ascending
 train.badam_update_ratio: 0.05
-train.batch_size: 1
+train.batch_size: 2
 train.compute_type: bf16
 train.create_new_adapter: false
-train.cutoff_len: 1024
+train.cutoff_len: 2048
 train.dataset:
 - rt_barv2
 train.dataset_dir: data
@@ -42,7 +42,7 @@ train.max_grad_norm: '1.0'
 train.max_samples: '100000'
 train.neat_packing: false
 train.neftune_alpha: 0
-train.num_train_epochs: '15'
+train.num_train_epochs: '72'
 train.packing: false
 train.ppo_score_norm: false
 train.ppo_whiten_rewards: false
@@ -53,7 +53,7 @@ train.report_to: true
 train.resize_vocab: false
 train.reward_model: null
 train.save_steps: 100
-train.shift_attn: false
+train.shift_attn: true
 train.train_on_prompt: false
 train.training_stage: Supervised Fine-Tuning
 train.use_badam: false
