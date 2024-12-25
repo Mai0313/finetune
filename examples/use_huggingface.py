@@ -1,3 +1,5 @@
+import json
+
 import torch
 from transformers import (
     AutoProcessor,
@@ -32,4 +34,6 @@ pipe = pipeline(
 )
 
 result = pipe("./data/tmp/sample_41.mp3")
-print(result)
+
+with open("result.json", "w") as f:
+    json.dump(result, f)
