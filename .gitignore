@@ -166,6 +166,7 @@ cython_debug/
 /logs/
 /outputs/
 /data/tmp/
+/data/voices/
 /cache/
 /saves/
 /mlruns/
