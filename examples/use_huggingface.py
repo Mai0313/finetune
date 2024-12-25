@@ -34,6 +34,7 @@ pipe = pipeline(
 )
 
 result = pipe("./data/tmp/sample_41.mp3")
+chunks = result["chunks"]
 
 with open("result.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False)
