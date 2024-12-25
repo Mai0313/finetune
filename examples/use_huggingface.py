@@ -32,4 +32,4 @@ pipe = pipeline(
 )
 
 result = pipe("./data/tmp/sample_41.mp3")
-print(result["text"])
+print(result)
