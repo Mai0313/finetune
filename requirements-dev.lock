@@ -551,6 +551,7 @@ numpy==1.26.4
     # via soxr
     # via tensorboard
     # via torchmetrics
+    # via torchvision
     # via transformers
     # via trl
 nvidia-cublas-cu11==11.11.3.6 ; platform_machine == 'x86_64' and platform_system == 'Linux'
@@ -658,6 +659,7 @@ pillow==10.4.0
     # via imageio
     # via matplotlib
     # via moviepy
+    # via torchvision
 platformdirs==4.3.6
     # via black
     # via jupyter-core
@@ -956,12 +958,16 @@ torch==2.4.1+cu118
     # via openai-whisper
     # via peft
     # via pytorch-lightning
+    # via torchaudio
     # via torchmetrics
+    # via torchvision
     # via trl
+torchaudio==2.4.1+cu118
 torchmetrics==1.6.0
     # via lightning
     # via litgpt
     # via pytorch-lightning
+torchvision==0.19.1+cu118
 tornado==6.4.1
     # via ipykernel
     # via jupyter-client
