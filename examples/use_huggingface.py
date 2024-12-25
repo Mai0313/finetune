@@ -1,5 +1,4 @@
 import torch
-from datasets import load_dataset
 from transformers import (
     AutoProcessor,
     AutoModelForSpeechSeq2Seq,
@@ -22,18 +21,15 @@ model.to(device)
 
 processor = AutoProcessor.from_pretrained(model_id)
 
-# pipe = pipeline(
-#     "automatic-speech-recognition",
-#     model=model,
-#     tokenizer=processor.tokenizer,
-#     feature_extractor=processor.feature_extractor,
-#     torch_dtype=torch_dtype,
-#     device=device,
-#     return_timestamps=True
-# )
+pipe = pipeline(
+    "automatic-speech-recognition",
+    model=model,
+    tokenizer=processor.tokenizer,
+    feature_extractor=processor.feature_extractor,
+    torch_dtype=torch_dtype,
+    device=device,
+    return_timestamps=True,
+)
 
-# dataset = load_dataset("distil-whisper/librispeech_long", "clean", split="validation")
-# sample = dataset[0]["audio"]
-
-# result = pipe("./data/tmp/sample_41.mp3")
-# print(result["text"])
+result = pipe("./data/tmp/sample_41.mp3")
+print(result["text"])
