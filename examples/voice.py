@@ -35,7 +35,7 @@ def split_audio_into_chunks(filename: str, max_size_mb: int, is_test: bool) -> l
         total_duration = audio.duration
 
         # Calculate maximum duration per chunk based on size constraint
-        average_bitrate = 128 * 1024  # Assuming a default bitrate of 128kbps (in bits per second)
+        average_bitrate = audio.reader.infos["audio_bitrate"] * 1024
         max_duration = (max_size_mb * 8 * 1024 * 1024) / average_bitrate
 
         start_time = 0
