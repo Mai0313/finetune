@@ -1,0 +1,1844 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Wei Cheng Lee">
+      
+      
+        <link rel="canonical" href="https://mai0313.github.io/finetune/">
+      
+      
+      
+        <link rel="next" href="Reference/eval/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>finetune</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#use-finetune-pretrain-and-deploy-llms-lightning-fast" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="finetune" class="md-header__button md-logo" aria-label="finetune" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            finetune
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2C5.13 2 2 5.13 2 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7M6 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H6zm13-8h-2l-3.2 9h1.9l.7-2h3.2l.7 2h1.9zm-2.15 5.65L18 15l1.15 3.65z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/" hreflang="en" class="md-select__link">
+              en - English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mai0313/finetune" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mai0313/finetune
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Reference/eval/" class="md-tabs__link">
+          
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Scripts/gen_docs/" class="md-tabs__link">
+          
+  
+    
+  
+  Scripts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="installation/pip/" class="md-tabs__link">
+          
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="finetune" class="md-nav__button md-logo" aria-label="finetune" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    finetune
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mai0313/finetune" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mai0313/finetune
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Reference/eval/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eval
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Reference/train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Train
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Reference/data/loader/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loader
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Model
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Reference/model/lora/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lora
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Utils
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Utils
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Reference/utils/instantiators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instantiators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Scripts/gen_docs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gen docs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="blog/archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/pip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using PIP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/rye/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Rye
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p></center></p>
+<div align="center">
+
+# ⚡ Finetune
+
+**20+ high-performance LLMs with recipes to pretrain, finetune, and deploy at scale.**
+
+<pre>
+✅ From scratch implementations     ✅ No abstractions    ✅ Beginner friendly
+✅ Flash attention                  ✅ FSDP               ✅ LoRA, QLoRA, Adapter
+✅ Reduce GPU memory (fp4/8/16/32)  ✅ 1-1000+ GPUs/TPUs  ✅ 20+ LLMs
+</pre>
+
+______________________________________________________________________
+
+[![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
+[![lightning](https://img.shields.io/badge/-Lightning_2.0+-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
+[![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![tests](https://github.com/Mai0313/finetune/actions/workflows/test.yml/badge.svg)](https://github.com/Mai0313/finetune/actions/workflows/test.yml)
+[![code-quality](https://github.com/Mai0313/finetune/actions/workflows/code-quality-check.yml/badge.svg)](https://github.com/Mai0313/finetune/actions/workflows/code-quality-check.yml)
+[![codecov](https://codecov.io/gh/Mai0313/finetune/branch/master/graph/badge.svg)](https://codecov.io/gh/Mai0313/finetune)
+[![license](https://img.shields.io/badge/License-MIT-green.svg?labelColor=gray)](https://github.com/Mai0313/finetune/tree/master?tab=License-1-ov-file)
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Mai0313/finetune/pulls)
+[![contributors](https://img.shields.io/github/contributors/Mai0313/finetune.svg)](https://github.com/Mai0313/finetune/graphs/contributors)
+
+<p align="center">
+  <a href="#quick-start">Quick start</a> •
+  <a href="#choose-from-20-llms">Models</a> •
+  <a href="#finetune-an-llm">Finetune</a> •
+  <a href="#deploy-an-llm">Deploy</a> •
+  <a href="#all-workflows">All workflows</a> •
+  <a href="#state-of-the-art-features">Features</a> •
+  <a href="#training-recipes">Recipes (YAML)</a> •
+  <a href="https://lightning.ai/">Lightning AI</a> •
+    <a href="#tutorials">Tutorials</a>
+</p>
+
+&#160;
+
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-quick-start">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/get-started-badge.svg" height="36px" alt="Get started"/>
+</a>
+
+&#160;
+
+</div>
+
+<h1 id="use-finetune-pretrain-and-deploy-llms-lightning-fast">Use, finetune, pretrain, and deploy LLMs Lightning fast ⚡⚡</h1>
+<p>Every LLM is implemented from scratch with <strong>no abstractions</strong> and <strong>full control</strong>, making them blazing fast, minimal, and performant at enterprise scale.</p>
+<p>✅ <strong>Enterprise ready -</strong> Apache 2.0 for unlimited enterprise use.
+✅ <strong>Developer friendly -</strong> Easy debugging with no abstraction layers and single file implementations.
+✅ <strong>Optimized performance -</strong> Models designed to maximize performance, reduce costs, and speed up training.
+✅ <strong>Proven recipes -</strong> Highly-optimized training/finetuning recipes tested at enterprise scale.</p>
+<p>&#160;</p>
+<h1 id="quick-start">Quick start</h1>
+<p>Install LitGPT</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install &#39;litgpt[all]&#39;
+</span></code></pre></div>
+<p>Load and use any of the <a href="#choose-from-20-llms">20+ LLMs</a>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">litgpt</span> <span class="kn">import</span> <span class="n">LLM</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">llm</span> <span class="o">=</span> <span class="n">LLM</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;microsoft/phi-2&quot;</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">text</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;Fix the spelling: Every fall, the family goes to the mountains.&quot;</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Corrected Sentence: Every fall, the family goes to the mountains.</span>
+</span></code></pre></div>
+<p>&#160;</p>
+<p>✅ Optimized for fast inference
+✅ Quantization
+✅ Runs on low-memory GPUs
+✅ No layers of internal abstractions
+✅ Optimized for production scale</p>
+<details>
+  <summary>Advanced install options</summary>
+
+Install from source:
+
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Lightning-AI/litgpt
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>litgpt
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[all]&#39;</span>
+</span></code></pre></div>
+
+</details>
+
+<p><a href="tutorials/python-api.md">Explore the full Python API docs</a>.</p>
+<p>&#160;</p>
+<hr />
+<h1 id="choose-from-20-llms">Choose from 20+ LLMs</h1>
+<p>Every model is written from scratch to maximize performance and remove layers of abstraction:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Model size</th>
+<th>Author</th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Llama 3, 3.1, 3.2</td>
+<td>1B, 3B, 8B, 70B, 405B</td>
+<td>Meta AI</td>
+<td><a href="https://github.com/meta-llama/llama3">Meta AI 2024</a></td>
+</tr>
+<tr>
+<td>Code Llama</td>
+<td>7B, 13B, 34B, 70B</td>
+<td>Meta AI</td>
+<td><a href="https://arxiv.org/abs/2308.12950">Rozière et al. 2023</a></td>
+</tr>
+<tr>
+<td>Mixtral MoE</td>
+<td>8x7B, 8x22B</td>
+<td>Mistral AI</td>
+<td><a href="https://mistral.ai/news/mixtral-of-experts/">Mistral AI 2023</a></td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td>7B, 123B</td>
+<td>Mistral AI</td>
+<td><a href="https://mistral.ai/news/announcing-mistral-7b/">Mistral AI 2023</a></td>
+</tr>
+<tr>
+<td>CodeGemma</td>
+<td>7B</td>
+<td>Google</td>
+<td><a href="https://ai.google.dev/gemma/docs/codegemma">Google Team, Google Deepmind</a></td>
+</tr>
+<tr>
+<td>Gemma 2</td>
+<td>2B, 9B, 27B</td>
+<td>Google</td>
+<td><a href="https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf">Google Team, Google Deepmind</a></td>
+</tr>
+<tr>
+<td>Phi 3 &amp; 3.5</td>
+<td>3.8B</td>
+<td>Microsoft</td>
+<td><a href="https://arxiv.org/abs/2404.14219">Abdin et al. 2024</a></td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<details>
+  <summary>See full list of 20+ LLMs</summary>
+
+&#160;
+
+#### All models
+
+| Model                        | Model size                               | Author                          | Reference                                                                                              |
+| ---------------------------- | ---------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| CodeGemma                    | 7B                                       | Google                          | [Google Team, Google Deepmind](https://ai.google.dev/gemma/docs/codegemma)                             |
+| Code Llama                   | 7B, 13B, 34B, 70B                        | Meta AI                         | [Rozière et al. 2023](https://arxiv.org/abs/2308.12950)                                                |
+| Falcon                       | 7B, 40B, 180B                            | TII UAE                         | [TII 2023](https://falconllm.tii.ae)                                                                   |
+| FreeWilly2 (Stable Beluga 2) | 70B                                      | Stability AI                    | [Stability AI 2023](https://stability.ai/blog/stable-beluga-large-instruction-fine-tuned-models)       |
+| Function Calling Llama 2     | 7B                                       | Trelis                          | [Trelis et al. 2023](https://huggingface.co/Trelis/Llama-2-7b-chat-hf-function-calling-v2)             |
+| Gemma                        | 2B, 7B                                   | Google                          | [Google Team, Google Deepmind](https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf)   |
+| Gemma 2                      | 9B, 27B                                  | Google                          | [Google Team, Google Deepmind](https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf) |
+| Llama 2                      | 7B, 13B, 70B                             | Meta AI                         | [Touvron et al. 2023](https://arxiv.org/abs/2307.09288)                                                |
+| Llama 3.1                    | 8B, 70B                                  | Meta AI                         | [Meta AI 2024](https://github.com/meta-llama/llama3)                                                   |
+| Llama 3.2                    | 1B, 3B                                   | Meta AI                         | [Meta AI 2024](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)            |
+| Llama 3.3                    | 70B                                      | Meta AI                         | [Meta AI 2024](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct)                               |
+| Mathstral                    | 7B                                       | Mistral AI                      | [Mistral AI 2024](https://mistral.ai/news/mathstral/)                                                  |
+| MicroLlama                   | 300M                                     | Ken Wang                        | [MicroLlama repo](https://github.com/keeeeenw/MicroLlama)                                              |
+| Mixtral MoE                  | 8x7B                                     | Mistral AI                      | [Mistral AI 2023](https://mistral.ai/news/mixtral-of-experts/)                                         |
+| Mistral                      | 7B, 123B                                 | Mistral AI                      | [Mistral AI 2023](https://mistral.ai/news/announcing-mistral-7b/)                                      |
+| Mixtral MoE                  | 8x22B                                    | Mistral AI                      | [Mistral AI 2024](https://mistral.ai/news/mixtral-8x22b/)                                              |
+| OLMo                         | 1B, 7B                                   | Allen Institute for AI (AI2)    | [Groeneveld et al. 2024](https://aclanthology.org/2024.acl-long.841/)                                  |
+| OpenLLaMA                    | 3B, 7B, 13B                              | OpenLM Research                 | [Geng & Liu 2023](https://github.com/openlm-research/open_llama)                                       |
+| Phi 1.5 & 2                  | 1.3B, 2.7B                               | Microsoft Research              | [Li et al. 2023](https://arxiv.org/abs/2309.05463)                                                     |
+| Phi 3                        | 3.8B                                     | Microsoft Research              | [Abdin et al. 2024](https://arxiv.org/abs/2404.14219)                                                  |
+| Platypus                     | 7B, 13B, 70B                             | Lee et al.                      | [Lee, Hunter, and Ruiz 2023](https://arxiv.org/abs/2308.07317)                                         |
+| Pythia                       | {14,31,70,160,410}M, {1,1.4,2.8,6.9,12}B | EleutherAI                      | [Biderman et al. 2023](https://arxiv.org/abs/2304.01373)                                               |
+| Qwen2.5                      | 0.5B, 1.5B, 3B, 7B, 14B, 32B, 72B        | Alibaba Group                   | [Qwen Team 2024](https://qwenlm.github.io/blog/qwen2.5/)                                               |
+| Qwen2.5 Coder                | 0.5B, 1.5B, 3B, 7B, 14B, 32B             | Alibaba Group                   | [Hui, Binyuan et al. 2024](https://arxiv.org/abs/2409.12186)                                           |
+| Qwen2.5 Math                 | 1.5B, 7B, 72B                            | Alibaba Group                   | [An, Yang et al. 2024](https://arxiv.org/abs/2409.12122)                                               |
+| QwQ                          | 32B                                      | Alibaba Group                   | [Qwen Team 2024](https://qwenlm.github.io/blog/qwq-32b-preview/)                                       |
+| SmolLM2                      | 135M, 360M, 1.7B                         | Hugging Face                    | [Hugging Face 2024](https://github.com/huggingface/smollm)                                             |
+| Salamandra                   | 2B, 7B                                   | Barcelona Supercomputing Centre | [BSC-LTC 2024](https://github.com/BSC-LTC/salamandra)                                                  |
+| StableCode                   | 3B                                       | Stability AI                    | [Stability AI 2023](https://stability.ai/blog/stablecode-llm-generative-ai-coding)                     |
+| StableLM                     | 3B, 7B                                   | Stability AI                    | [Stability AI 2023](https://github.com/Stability-AI/StableLM)                                          |
+| StableLM Zephyr              | 3B                                       | Stability AI                    | [Stability AI 2023](https://stability.ai/blog/stablecode-llm-generative-ai-coding)                     |
+| TinyLlama                    | 1.1B                                     | Zhang et al.                    | [Zhang et al. 2023](https://github.com/jzhang38/TinyLlama)                                             |
+
+**Tip**: You can list all available models by running the `litgpt download list` command.
+
+</details>
+
+<p>&#160;</p>
+<hr />
+<h1 id="workflows">Workflows</h1>
+<p align="center">
+  <a href="#finetune-an-llm">Finetune</a> •
+  <a href="#pretrain-an-llm">Pretrain</a> •
+  <a href="#continue-pretraining-an-llm">Continued pretraining</a> •
+    <a href="#evaluate-an-llm">Evaluate</a> •
+    <a href="#deploy-an-llm">Deploy</a> •
+    <a href="#test-an-llm">Test</a>
+</p>
+
+<p>&#160;</p>
+<p>Use the command line interface to run advanced workflows such as pretraining or finetuning on your own data.</p>
+<h2 id="all-workflows">All workflows</h2>
+<p>After installing LitGPT, select the model and workflow to run (finetune, pretrain, evaluate, deploy, etc...):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># ligpt [action] [model]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>litgpt<span class="w">  </span>serve<span class="w">     </span>meta-llama/Llama-3.2-3B-Instruct
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>litgpt<span class="w">  </span>finetune<span class="w">  </span>meta-llama/Llama-3.2-3B-Instruct
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>litgpt<span class="w">  </span>pretrain<span class="w">  </span>meta-llama/Llama-3.2-3B-Instruct
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>litgpt<span class="w">  </span>chat<span class="w">      </span>meta-llama/Llama-3.2-3B-Instruct
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>litgpt<span class="w">  </span>evaluate<span class="w">  </span>meta-llama/Llama-3.2-3B-Instruct
+</span></code></pre></div>
+<p>&#160;</p>
+<hr />
+<h2 id="finetune-an-llm">Finetune an LLM</h2>
+<div align="center">
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-finetune">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/run-on-studio.svg" height="36px" alt="Run on Studios"/>
+</a>
+</div>
+
+<p>&#160;</p>
+<p>Finetuning is the process of taking a pretrained AI model and further training it on a smaller, specialized dataset tailored to a specific task or application.</p>
+<p>&#160;</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 0) setup your dataset</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>curl<span class="w"> </span>-L<span class="w"> </span>https://huggingface.co/datasets/ksaw008/finance_alpaca/resolve/main/finance_alpaca.json<span class="w"> </span>-o<span class="w"> </span>my_custom_dataset.json
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 1) Finetune a model (auto downloads weights)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>litgpt<span class="w"> </span>finetune<span class="w"> </span>microsoft/phi-2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>--data<span class="w"> </span>JSON<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>--data.json_path<span class="w"> </span>my_custom_dataset.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span>--data.val_split_fraction<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span>--out_dir<span class="w"> </span>out/custom-model
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># 2) Test the model</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>litgpt<span class="w"> </span>chat<span class="w"> </span>out/custom-model/final
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># 3) Deploy the model</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>litgpt<span class="w"> </span>serve<span class="w"> </span>out/custom-model/final
+</span></code></pre></div>
+<p><a href="tutorials/finetune.md">Read the full finetuning docs</a></p>
+<p>&#160;</p>
+<hr />
+<h2 id="deploy-an-llm">Deploy an LLM</h2>
+<div align="center">
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-serve">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/deploy-on-studios.svg" height="36px" alt="Deploy on Studios"/>
+</a>
+</div>
+
+<p>&#160;</p>
+<p>Deploy a pretrained or finetune LLM to use it in real-world applications. Deploy, automatically sets up a web server that can be accessed by a website or app.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># deploy an out-of-the-box LLM</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>litgpt<span class="w"> </span>serve<span class="w"> </span>microsoft/phi-2
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># deploy your own trained model</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>litgpt<span class="w"> </span>serve<span class="w"> </span>path/to/microsoft/phi-2/checkpoint
+</span></code></pre></div>
+<details>
+  <summary>Show code to query server:</summary>
+
+&#160;
+
+Test the server in a separate terminal and integrate the model API into your AI product:
+
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 3) Use the server (in a separate Python session)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="s2">&quot;http://127.0.0.1:8000/predict&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;Fix typos in the following sentence: Example input&quot;</span><span class="p">}</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
+</span></code></pre></div>
+
+</details>
+
+<p><a href="tutorials/deploy.md">Read the full deploy docs</a>.</p>
+<p>&#160;</p>
+<hr />
+<h2 id="evaluate-an-llm">Evaluate an LLM</h2>
+<p>Evaluate an LLM to test its performance on various tasks to see how well it understands and generates text. Simply put, we can evaluate things like how well would it do in college-level chemistry, coding, etc... (MMLU, Truthful QA, etc...)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>litgpt<span class="w"> </span>evaluate<span class="w"> </span>microsoft/phi-2<span class="w"> </span>--tasks<span class="w"> </span><span class="s1">&#39;truthfulqa_mc2,mmlu&#39;</span>
+</span></code></pre></div>
+<p><a href="tutorials/evaluation.md">Read the full evaluation docs</a>.</p>
+<p>&#160;</p>
+<hr />
+<h2 id="test-an-llm">Test an LLM</h2>
+<div align="center">
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-chat">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/run-on-studio.svg" height="36px" alt="Run on Studios"/>
+</a>
+</div>
+
+<p>&#160;</p>
+<p>Test how well the model works via an interactive chat. Use the <code>chat</code> command to chat, extract embeddings, etc...</p>
+<p>Here's an example showing how to use the Phi-2 LLM:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>litgpt<span class="w"> </span>chat<span class="w"> </span>microsoft/phi-2
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>&gt;&gt;<span class="w"> </span>Prompt:<span class="w"> </span>What<span class="w"> </span><span class="k">do</span><span class="w"> </span>Llamas<span class="w"> </span>eat?
+</span></code></pre></div>
+<details>
+  <summary>Full code:</summary>
+
+&#160;
+
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1) List all supported LLMs</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>litgpt<span class="w"> </span>download<span class="w"> </span>list
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 2) Use a model (auto downloads weights)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>litgpt<span class="w"> </span>chat<span class="w"> </span>microsoft/phi-2
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>&gt;&gt;<span class="w"> </span>Prompt:<span class="w"> </span>What<span class="w"> </span><span class="k">do</span><span class="w"> </span>Llamas<span class="w"> </span>eat?
+</span></code></pre></div>
+
+The download of certain models requires an additional access token. You can read more about this in the [download](tutorials/download_model_weights.md#specific-models-and-access-tokens) documentation.
+
+</details>
+
+<p><a href="tutorials/inference.md">Read the full chat docs</a>.</p>
+<p>&#160;</p>
+<hr />
+<h2 id="pretrain-an-llm">Pretrain an LLM</h2>
+<div align="center">
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-pretrain">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/run-on-studio.svg" height="36px" alt="Run on Studios"/>
+</a>
+</div>
+
+<p>&#160;</p>
+<p>Pretraining is the process of teaching an AI model by exposing it to a large amount of data before it is fine-tuned for specific tasks.</p>
+<details>
+  <summary>Show code:</summary>
+
+&#160;
+
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>custom_texts
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>curl<span class="w"> </span>https://www.gutenberg.org/cache/epub/24440/pg24440.txt<span class="w"> </span>--output<span class="w"> </span>custom_texts/book1.txt
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>curl<span class="w"> </span>https://www.gutenberg.org/cache/epub/26393/pg26393.txt<span class="w"> </span>--output<span class="w"> </span>custom_texts/book2.txt
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># 1) Download a tokenizer</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>litgpt<span class="w"> </span>download<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span>--tokenizer_only<span class="w"> </span>True
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># 2) Pretrain the model</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>litgpt<span class="w"> </span>pretrain<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span>--tokenizer_dir<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span>--data<span class="w"> </span>TextFiles<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">  </span>--data.train_data_path<span class="w"> </span><span class="s2">&quot;custom_texts/&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">  </span>--train.max_tokens<span class="w"> </span>10_000_000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">  </span>--out_dir<span class="w"> </span>out/custom-model
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="c1"># 3) Test the model</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>litgpt<span class="w"> </span>chat<span class="w"> </span>out/custom-model/final
+</span></code></pre></div>
+
+</details>
+
+<p><a href="tutorials/pretrain.md">Read the full pretraining docs</a></p>
+<p>&#160;</p>
+<hr />
+<h2 id="continue-pretraining-an-llm">Continue pretraining an LLM</h2>
+<div align="center">
+<a target="_blank" href="https://lightning.ai/lightning-ai/studios/litgpt-continue-pretraining">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/run-on-studio.svg" height="36px" alt="Run on Studios"/>
+</a>
+</div>
+
+<p>&#160;</p>
+<p>Continued pretraining is another way of finetuning that specializes an already pretrained model by training on custom data:</p>
+<details>
+  <summary>Show code:</summary>
+
+&#160;
+
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>custom_texts
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>curl<span class="w"> </span>https://www.gutenberg.org/cache/epub/24440/pg24440.txt<span class="w"> </span>--output<span class="w"> </span>custom_texts/book1.txt
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>curl<span class="w"> </span>https://www.gutenberg.org/cache/epub/26393/pg26393.txt<span class="w"> </span>--output<span class="w"> </span>custom_texts/book2.txt
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># 1) Continue pretraining a model (auto downloads weights)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>litgpt<span class="w"> </span>pretrain<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span>--tokenizer_dir<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span>--initial_checkpoint_dir<span class="w"> </span>EleutherAI/pythia-160m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span>--data<span class="w"> </span>TextFiles<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span>--data.train_data_path<span class="w"> </span><span class="s2">&quot;custom_texts/&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span>--train.max_tokens<span class="w"> </span>10_000_000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span>--out_dir<span class="w"> </span>out/custom-model
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="c1"># 2) Test the model</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>litgpt<span class="w"> </span>chat<span class="w"> </span>out/custom-model/final
+</span></code></pre></div>
+
+</details>
+
+<p><a href="tutorials/pretrain.md#continued-pretraining-on-custom-data">Read the full continued pretraining docs</a></p>
+<p>&#160;</p>
+<hr />
+<h1 id="state-of-the-art-features">State-of-the-art features</h1>
+<p>✅  State-of-the-art optimizations: Flash Attention v2, multi-GPU support via fully-sharded data parallelism, <a href="tutorials/oom.md#do-sharding-across-multiple-gpus">optional CPU offloading</a>, and <a href="extensions/xla">TPU and XLA support</a>.</p>
+<p>✅  <a href="tutorials/pretrain.md">Pretrain</a>, <a href="tutorials/finetune.md">finetune</a>, and <a href="tutorials/inference.md">deploy</a></p>
+<p>✅  Reduce compute requirements with low-precision settings: FP16, BF16, and FP16/FP32 mixed.</p>
+<p>✅  Lower memory requirements with <a href="tutorials/quantize.md">quantization</a>: 4-bit floats, 8-bit integers, and double quantization.</p>
+<p>✅  <a href="config_hub">Configuration files</a> for great out-of-the-box performance.</p>
+<p>✅  Parameter-efficient finetuning: <a href="tutorials/finetune_lora.md">LoRA</a>, <a href="tutorials/finetune_lora.md">QLoRA</a>, <a href="tutorials/finetune_adapter.md">Adapter</a>, and <a href="tutorials/finetune_adapter.md">Adapter v2</a>.</p>
+<p>✅  <a href="tutorials/convert_lit_models.md">Exporting</a> to other popular model weight formats.</p>
+<p>✅  Many popular datasets for <a href="tutorials/pretrain.md">pretraining</a> and <a href="tutorials/prepare_dataset.md">finetuning</a>, and <a href="tutorials/prepare_dataset.md#preparing-custom-datasets-for-instruction-finetuning">support for custom datasets</a>.</p>
+<p>✅  Readable and easy-to-modify code to experiment with the latest research ideas.</p>
+<p>&#160;</p>
+<hr />
+<h1 id="training-recipes">Training recipes</h1>
+<p>LitGPT comes with validated recipes (YAML configs) to train models under different conditions. We've generated these recipes based on the parameters we found to perform the best for different training conditions.</p>
+<p>Browse all training recipes <a href="config_hub">here</a>.</p>
+<h3 id="example">Example</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>litgpt<span class="w"> </span>finetune<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>--config<span class="w"> </span>https://raw.githubusercontent.com/Lightning-AI/litgpt/main/config_hub/finetune/llama-2-7b/lora.yaml
+</span></code></pre></div>
+<details>
+  <summary>✅ Use configs to customize training</summary>
+
+Configs let you customize training for all granular parameters like:
+
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># The path to the base model&#39;s checkpoint directory to load for finetuning. (type: &lt;class &#39;Path&#39;&gt;, default: checkpoints/stabilityai/stablelm-base-alpha-3b)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">checkpoint_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">checkpoints/meta-llama/Llama-2-7b-hf</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Directory in which to save checkpoints and logs. (type: &lt;class &#39;Path&#39;&gt;, default: out/lora)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nt">out_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out/finetune/qlora-llama2-7b</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># The precision to use for finetuning. Possible choices: &quot;bf16-true&quot;, &quot;bf16-mixed&quot;, &quot;32-true&quot;. (type: Optional[str], default: null)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bf16-true</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="nn">...</span>
+</span></code></pre></div>
+
+</details>
+
+<details>
+  <summary>✅ Example: LoRA finetuning config</summary>
+
+&#160;
+
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># The path to the base model&#39;s checkpoint directory to load for finetuning. (type: &lt;class &#39;Path&#39;&gt;, default: checkpoints/stabilityai/stablelm-base-alpha-3b)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">checkpoint_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">checkpoints/meta-llama/Llama-2-7b-hf</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Directory in which to save checkpoints and logs. (type: &lt;class &#39;Path&#39;&gt;, default: out/lora)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nt">out_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out/finetune/qlora-llama2-7b</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># The precision to use for finetuning. Possible choices: &quot;bf16-true&quot;, &quot;bf16-mixed&quot;, &quot;32-true&quot;. (type: Optional[str], default: null)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bf16-true</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># If set, quantize the model with this algorithm. See ``tutorials/quantize.md`` for more information. (type: Optional[Literal[&#39;nf4&#39;, &#39;nf4-dq&#39;, &#39;fp4&#39;, &#39;fp4-dq&#39;, &#39;int8-training&#39;]], default: null)</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="nt">quantize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bnb.nf4</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="c1"># How many devices/GPUs to use. (type: Union[int, str], default: 1)</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="nt">devices</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="c1"># How many nodes to use. (type: int, default: 1)</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="nt">num_nodes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="c1"># The LoRA rank. (type: int, default: 8)</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="nt">lora_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="c1"># The LoRA alpha. (type: int, default: 16)</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="nt">lora_alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="c1"># The LoRA dropout value. (type: float, default: 0.05)</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="nt">lora_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="c1"># Whether to apply LoRA to the query weights in attention. (type: bool, default: True)</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="nt">lora_query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a><span class="c1"># Whether to apply LoRA to the key weights in attention. (type: bool, default: False)</span>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="nt">lora_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="c1"># Whether to apply LoRA to the value weights in attention. (type: bool, default: True)</span>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="nt">lora_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="c1"># Whether to apply LoRA to the output projection in the attention block. (type: bool, default: False)</span>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="nt">lora_projection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="c1"># Whether to apply LoRA to the weights of the MLP in the attention block. (type: bool, default: False)</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="nt">lora_mlp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>
+</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="c1"># Whether to apply LoRA to output head in GPT. (type: bool, default: False)</span>
+</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a><span class="nt">lora_head</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>
+</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="c1"># Data-related arguments. If not provided, the default is ``litgpt.data.Alpaca``.</span>
+</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="nt">data</span><span class="p">:</span>
+</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a><span class="w">  </span><span class="nt">class_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">litgpt.data.Alpaca2k</span>
+</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a><span class="w">  </span><span class="nt">init_args</span><span class="p">:</span>
+</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="w">    </span><span class="nt">mask_prompt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="w">    </span><span class="nt">val_split_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a><span class="w">    </span><span class="nt">prompt_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpaca</span>
+</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a><span class="w">    </span><span class="nt">ignore_index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-100</span>
+</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="w">    </span><span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a><span class="w">    </span><span class="nt">num_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a><span class="w">    </span><span class="nt">download_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/alpaca2k</span>
+</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a>
+</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a><span class="c1"># Training-related arguments. See ``litgpt.args.TrainArgs`` for details</span>
+</span><span id="__span-14-59"><a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a><span class="nt">train</span><span class="p">:</span>
+</span><span id="__span-14-60"><a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a>
+</span><span id="__span-14-61"><a id="__codelineno-14-61" name="__codelineno-14-61" href="#__codelineno-14-61"></a><span class="w">  </span><span class="c1"># Number of optimizer steps between saving checkpoints (type: Optional[int], default: 1000)</span>
+</span><span id="__span-14-62"><a id="__codelineno-14-62" name="__codelineno-14-62" href="#__codelineno-14-62"></a><span class="w">  </span><span class="nt">save_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+</span><span id="__span-14-63"><a id="__codelineno-14-63" name="__codelineno-14-63" href="#__codelineno-14-63"></a>
+</span><span id="__span-14-64"><a id="__codelineno-14-64" name="__codelineno-14-64" href="#__codelineno-14-64"></a><span class="w">  </span><span class="c1"># Number of iterations between logging calls (type: int, default: 1)</span>
+</span><span id="__span-14-65"><a id="__codelineno-14-65" name="__codelineno-14-65" href="#__codelineno-14-65"></a><span class="w">  </span><span class="nt">log_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-14-66"><a id="__codelineno-14-66" name="__codelineno-14-66" href="#__codelineno-14-66"></a>
+</span><span id="__span-14-67"><a id="__codelineno-14-67" name="__codelineno-14-67" href="#__codelineno-14-67"></a><span class="w">  </span><span class="c1"># Number of samples between optimizer steps across data-parallel ranks (type: int, default: 128)</span>
+</span><span id="__span-14-68"><a id="__codelineno-14-68" name="__codelineno-14-68" href="#__codelineno-14-68"></a><span class="w">  </span><span class="nt">global_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+</span><span id="__span-14-69"><a id="__codelineno-14-69" name="__codelineno-14-69" href="#__codelineno-14-69"></a>
+</span><span id="__span-14-70"><a id="__codelineno-14-70" name="__codelineno-14-70" href="#__codelineno-14-70"></a><span class="w">  </span><span class="c1"># Number of samples per data-parallel rank (type: int, default: 4)</span>
+</span><span id="__span-14-71"><a id="__codelineno-14-71" name="__codelineno-14-71" href="#__codelineno-14-71"></a><span class="w">  </span><span class="nt">micro_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span id="__span-14-72"><a id="__codelineno-14-72" name="__codelineno-14-72" href="#__codelineno-14-72"></a>
+</span><span id="__span-14-73"><a id="__codelineno-14-73" name="__codelineno-14-73" href="#__codelineno-14-73"></a><span class="w">  </span><span class="c1"># Number of iterations with learning rate warmup active (type: int, default: 100)</span>
+</span><span id="__span-14-74"><a id="__codelineno-14-74" name="__codelineno-14-74" href="#__codelineno-14-74"></a><span class="w">  </span><span class="nt">lr_warmup_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</span><span id="__span-14-75"><a id="__codelineno-14-75" name="__codelineno-14-75" href="#__codelineno-14-75"></a>
+</span><span id="__span-14-76"><a id="__codelineno-14-76" name="__codelineno-14-76" href="#__codelineno-14-76"></a><span class="w">  </span><span class="c1"># Number of epochs to train on (type: Optional[int], default: 5)</span>
+</span><span id="__span-14-77"><a id="__codelineno-14-77" name="__codelineno-14-77" href="#__codelineno-14-77"></a><span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span><span id="__span-14-78"><a id="__codelineno-14-78" name="__codelineno-14-78" href="#__codelineno-14-78"></a>
+</span><span id="__span-14-79"><a id="__codelineno-14-79" name="__codelineno-14-79" href="#__codelineno-14-79"></a><span class="w">  </span><span class="c1"># Total number of tokens to train on (type: Optional[int], default: null)</span>
+</span><span id="__span-14-80"><a id="__codelineno-14-80" name="__codelineno-14-80" href="#__codelineno-14-80"></a><span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span>
+</span><span id="__span-14-81"><a id="__codelineno-14-81" name="__codelineno-14-81" href="#__codelineno-14-81"></a>
+</span><span id="__span-14-82"><a id="__codelineno-14-82" name="__codelineno-14-82" href="#__codelineno-14-82"></a><span class="w">  </span><span class="c1"># Limits the number of optimizer steps to run (type: Optional[int], default: null)</span>
+</span><span id="__span-14-83"><a id="__codelineno-14-83" name="__codelineno-14-83" href="#__codelineno-14-83"></a><span class="w">  </span><span class="nt">max_steps</span><span class="p">:</span>
+</span><span id="__span-14-84"><a id="__codelineno-14-84" name="__codelineno-14-84" href="#__codelineno-14-84"></a>
+</span><span id="__span-14-85"><a id="__codelineno-14-85" name="__codelineno-14-85" href="#__codelineno-14-85"></a><span class="w">  </span><span class="c1"># Limits the length of samples (type: Optional[int], default: null)</span>
+</span><span id="__span-14-86"><a id="__codelineno-14-86" name="__codelineno-14-86" href="#__codelineno-14-86"></a><span class="w">  </span><span class="nt">max_seq_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+</span><span id="__span-14-87"><a id="__codelineno-14-87" name="__codelineno-14-87" href="#__codelineno-14-87"></a>
+</span><span id="__span-14-88"><a id="__codelineno-14-88" name="__codelineno-14-88" href="#__codelineno-14-88"></a><span class="w">  </span><span class="c1"># Whether to tie the embedding weights with the language modeling head weights (type: Optional[bool], default: null)</span>
+</span><span id="__span-14-89"><a id="__codelineno-14-89" name="__codelineno-14-89" href="#__codelineno-14-89"></a><span class="w">  </span><span class="nt">tie_embeddings</span><span class="p">:</span>
+</span><span id="__span-14-90"><a id="__codelineno-14-90" name="__codelineno-14-90" href="#__codelineno-14-90"></a>
+</span><span id="__span-14-91"><a id="__codelineno-14-91" name="__codelineno-14-91" href="#__codelineno-14-91"></a><span class="w">  </span><span class="c1">#   (type: float, default: 0.0003)</span>
+</span><span id="__span-14-92"><a id="__codelineno-14-92" name="__codelineno-14-92" href="#__codelineno-14-92"></a><span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0002</span>
+</span><span id="__span-14-93"><a id="__codelineno-14-93" name="__codelineno-14-93" href="#__codelineno-14-93"></a>
+</span><span id="__span-14-94"><a id="__codelineno-14-94" name="__codelineno-14-94" href="#__codelineno-14-94"></a><span class="w">  </span><span class="c1">#   (type: float, default: 0.02)</span>
+</span><span id="__span-14-95"><a id="__codelineno-14-95" name="__codelineno-14-95" href="#__codelineno-14-95"></a><span class="w">  </span><span class="nt">weight_decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+</span><span id="__span-14-96"><a id="__codelineno-14-96" name="__codelineno-14-96" href="#__codelineno-14-96"></a>
+</span><span id="__span-14-97"><a id="__codelineno-14-97" name="__codelineno-14-97" href="#__codelineno-14-97"></a><span class="w">  </span><span class="c1">#   (type: float, default: 0.9)</span>
+</span><span id="__span-14-98"><a id="__codelineno-14-98" name="__codelineno-14-98" href="#__codelineno-14-98"></a><span class="w">  </span><span class="nt">beta1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+</span><span id="__span-14-99"><a id="__codelineno-14-99" name="__codelineno-14-99" href="#__codelineno-14-99"></a>
+</span><span id="__span-14-100"><a id="__codelineno-14-100" name="__codelineno-14-100" href="#__codelineno-14-100"></a><span class="w">  </span><span class="c1">#   (type: float, default: 0.95)</span>
+</span><span id="__span-14-101"><a id="__codelineno-14-101" name="__codelineno-14-101" href="#__codelineno-14-101"></a><span class="w">  </span><span class="nt">beta2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.95</span>
+</span><span id="__span-14-102"><a id="__codelineno-14-102" name="__codelineno-14-102" href="#__codelineno-14-102"></a>
+</span><span id="__span-14-103"><a id="__codelineno-14-103" name="__codelineno-14-103" href="#__codelineno-14-103"></a><span class="w">  </span><span class="c1">#   (type: Optional[float], default: null)</span>
+</span><span id="__span-14-104"><a id="__codelineno-14-104" name="__codelineno-14-104" href="#__codelineno-14-104"></a><span class="w">  </span><span class="nt">max_norm</span><span class="p">:</span>
+</span><span id="__span-14-105"><a id="__codelineno-14-105" name="__codelineno-14-105" href="#__codelineno-14-105"></a>
+</span><span id="__span-14-106"><a id="__codelineno-14-106" name="__codelineno-14-106" href="#__codelineno-14-106"></a><span class="w">  </span><span class="c1">#   (type: float, default: 6e-05)</span>
+</span><span id="__span-14-107"><a id="__codelineno-14-107" name="__codelineno-14-107" href="#__codelineno-14-107"></a><span class="w">  </span><span class="nt">min_lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6.0e-05</span>
+</span><span id="__span-14-108"><a id="__codelineno-14-108" name="__codelineno-14-108" href="#__codelineno-14-108"></a>
+</span><span id="__span-14-109"><a id="__codelineno-14-109" name="__codelineno-14-109" href="#__codelineno-14-109"></a><span class="c1"># Evaluation-related arguments. See ``litgpt.args.EvalArgs`` for details</span>
+</span><span id="__span-14-110"><a id="__codelineno-14-110" name="__codelineno-14-110" href="#__codelineno-14-110"></a><span class="nt">eval</span><span class="p">:</span>
+</span><span id="__span-14-111"><a id="__codelineno-14-111" name="__codelineno-14-111" href="#__codelineno-14-111"></a>
+</span><span id="__span-14-112"><a id="__codelineno-14-112" name="__codelineno-14-112" href="#__codelineno-14-112"></a><span class="w">  </span><span class="c1"># Number of optimizer steps between evaluation calls (type: int, default: 100)</span>
+</span><span id="__span-14-113"><a id="__codelineno-14-113" name="__codelineno-14-113" href="#__codelineno-14-113"></a><span class="w">  </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-14-114"><a id="__codelineno-14-114" name="__codelineno-14-114" href="#__codelineno-14-114"></a>
+</span><span id="__span-14-115"><a id="__codelineno-14-115" name="__codelineno-14-115" href="#__codelineno-14-115"></a><span class="w">  </span><span class="c1"># Number of tokens to generate (type: Optional[int], default: 100)</span>
+</span><span id="__span-14-116"><a id="__codelineno-14-116" name="__codelineno-14-116" href="#__codelineno-14-116"></a><span class="w">  </span><span class="nt">max_new_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-14-117"><a id="__codelineno-14-117" name="__codelineno-14-117" href="#__codelineno-14-117"></a>
+</span><span id="__span-14-118"><a id="__codelineno-14-118" name="__codelineno-14-118" href="#__codelineno-14-118"></a><span class="w">  </span><span class="c1"># Number of iterations (type: int, default: 100)</span>
+</span><span id="__span-14-119"><a id="__codelineno-14-119" name="__codelineno-14-119" href="#__codelineno-14-119"></a><span class="w">  </span><span class="nt">max_iters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-14-120"><a id="__codelineno-14-120" name="__codelineno-14-120" href="#__codelineno-14-120"></a>
+</span><span id="__span-14-121"><a id="__codelineno-14-121" name="__codelineno-14-121" href="#__codelineno-14-121"></a><span class="c1"># The name of the logger to send metrics to. (type: Literal[&#39;wandb&#39;, &#39;tensorboard&#39;, &#39;csv&#39;], default: csv)</span>
+</span><span id="__span-14-122"><a id="__codelineno-14-122" name="__codelineno-14-122" href="#__codelineno-14-122"></a><span class="nt">logger_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span>
+</span><span id="__span-14-123"><a id="__codelineno-14-123" name="__codelineno-14-123" href="#__codelineno-14-123"></a>
+</span><span id="__span-14-124"><a id="__codelineno-14-124" name="__codelineno-14-124" href="#__codelineno-14-124"></a><span class="c1"># The random seed to use for reproducibility. (type: int, default: 1337)</span>
+</span><span id="__span-14-125"><a id="__codelineno-14-125" name="__codelineno-14-125" href="#__codelineno-14-125"></a><span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1337</span>
+</span></code></pre></div>
+
+</details>
+
+<details>
+  <summary>✅ Override any parameter in the CLI:</summary>
+
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>litgpt<span class="w"> </span>finetune<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>--config<span class="w"> </span>https://raw.githubusercontent.com/Lightning-AI/litgpt/main/config_hub/finetune/llama-2-7b/lora.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>--lora_r<span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+
+</details>
+
+<p>&#160;</p>
+<hr />
+<h1 id="project-highlights">Project highlights</h1>
+<p>LitGPT powers many great AI projects, initiatives, challenges and of course enterprises. Please submit a pull request to be considered for a feature.</p>
+<details>
+  <summary>📊 SAMBA: Simple Hybrid State Space Models for Efficient Unlimited Context Language Modeling</summary>
+
+The [Samba](https://github.com/microsoft/Samba) project by researchers at Microsoft is built on top of the LitGPT code base and combines state space models with sliding window attention, which outperforms pure state space models.
+
+</details>
+
+<details>
+  <summary>🏆 NeurIPS 2023 Large Language Model Efficiency Challenge: 1 LLM + 1 GPU + 1 Day</summary>
+
+The LitGPT repository was the official starter kit for the [NeurIPS 2023 LLM Efficiency Challenge](https://llm-efficiency-challenge.github.io), which is a competition focused on finetuning an existing non-instruction tuned LLM for 24 hours on a single GPU.
+
+</details>
+
+<details>
+  <summary>🦙 TinyLlama: An Open-Source Small Language Model</summary>
+
+LitGPT powered the [TinyLlama project](https://github.com/jzhang38/TinyLlama) and [TinyLlama: An Open-Source Small Language Model](https://arxiv.org/abs/2401.02385) research paper.
+
+</details>
+
+<details>
+  <summary>🍪 MicroLlama: MicroLlama-300M</summary>
+
+[MicroLlama](https://github.com/keeeeenw/MicroLlama) is a 300M Llama model pretrained on 50B tokens powered by TinyLlama and LitGPT.
+
+</details>
+
+<details>
+  <summary>🔬 Pre-training Small Base LMs with Fewer Tokens</summary>
+
+The research paper ["Pre-training Small Base LMs with Fewer Tokens"](https://arxiv.org/abs/2404.08634), which utilizes LitGPT, develops smaller base language models by inheriting a few transformer blocks from larger models and training on a tiny fraction of the data used by the larger models. It demonstrates that these smaller models can perform comparably to larger models despite using significantly less training data and resources.
+
+</details>
+
+<p>&#160;</p>
+<hr />
+<h1 id="community">Community</h1>
+<p>We welcome all individual contributors, regardless of their level of experience or hardware. Your contributions are valuable, and we are excited to see what you can accomplish in this collaborative and supportive environment.</p>
+<ul>
+<li><a href="https://github.com/Lightning-AI/litgpt/issues">Request a feature</a></li>
+<li><a href="https://lightning.ai/pages/community/tutorial/how-to-contribute-to-litgpt/">Submit your first contribution</a></li>
+<li><a href="https://discord.gg/VptPCZkGNa">Join our Discord</a></li>
+</ul>
+<p>&#160;</p>
+<h1 id="tutorials">Tutorials</h1>
+<p>🚀 <a href="tutorials/0_to_litgpt.md">Get started</a>
+⚡️ <a href="tutorials/finetune.md">Finetuning, incl. LoRA, QLoRA, and Adapters</a>
+🤖 <a href="tutorials/pretrain.md">Pretraining</a>
+💬 <a href="tutorials/evaluation.md">Model evaluation</a>
+📘 <a href="tutorials/prepare_dataset.md">Supported and custom datasets</a>
+🧹 <a href="tutorials/quantize.md">Quantization</a>
+🤯 <a href="tutorials/oom.md">Tips for dealing with out-of-memory (OOM) errors</a>
+🧑🏽‍💻 <a href="extensions/xla">Using cloud TPUs</a></p>
+<p>&#160;</p>
+<hr />
+<h3 id="acknowledgments">Acknowledgments</h3>
+<p>This implementation extends on <a href="https://github.com/lightning-AI/lit-llama">Lit-LLaMA</a> and <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>, and it's <strong>powered by <a href="https://lightning.ai/docs/fabric/stable/">Lightning Fabric</a> ⚡</strong>.</p>
+<ul>
+<li><a href="https://github.com/karpathy">@karpathy</a> for <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a></li>
+<li><a href="https://github.com/EleutherAI">@EleutherAI</a> for <a href="https://github.com/EleutherAI/gpt-neox">GPT-NeoX</a> and the <a href="https://github.com/EleutherAI/lm-evaluation-harness">Evaluation Harness</a></li>
+<li><a href="https://github.com/TimDettmers">@TimDettmers</a> for <a href="https://github.com/TimDettmers/bitsandbytes">bitsandbytes</a></li>
+<li><a href="https://github.com/microsoft">@Microsoft</a> for <a href="https://github.com/microsoft/LoRA">LoRA</a></li>
+<li><a href="https://github.com/tridao">@tridao</a> for <a href="https://github.com/Dao-AILab/flash-attention">Flash Attention 2</a></li>
+</ul>
+<h3 id="license">License</h3>
+<p>LitGPT is released under the <a href="https://github.com/Lightning-AI/litgpt/blob/main/LICENSE">Apache 2.0</a> license.</p>
+<h3 id="citation">Citation</h3>
+<p>If you use LitGPT in your research, please cite the following work:</p>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nc">@misc</span><span class="p">{</span><span class="nl">litgpt-2023</span><span class="p">,</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="na">author</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="s">{Lightning AI}</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="na">title</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="s">{LitGPT}</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="na">howpublished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{\url{https://github.com/Lightning-AI/litgpt}}</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="na">year</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="s">{2023}</span><span class="p">,</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>&#160;</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="Reference/eval/" class="md-footer__link md-footer__link--next" aria-label="Next: Eval">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Eval
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Mai0313/finetune" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
